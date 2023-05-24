@@ -1,0 +1,43 @@
+.exchange-main-con {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.exchnage-con {
+  margin-top: 30px;
+  width: 80%;
+  height: auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #000;
+  flex-wrap: wrap;
+  padding: 12px;
+}
+
+.exchnage-con > * {
+  margin-bottom: 12px;
+}
+
+.exchange-rates-con {
+  width: 80%;
+  height: auto;
+  background-color: #000;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 12px;
+}
+
+.rates {
+  border: 1px solid #fff;
+  padding: 12px;
+  border-radius: 8px;
+  margin: 8px;
+}

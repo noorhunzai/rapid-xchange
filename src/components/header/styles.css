@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000000;
+}
+
+.main {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 12vh;
+  color: #fff;
+}
+
+.header-btns {
+  display: flex;
+}
+
+.btn {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  padding: 8px 12px;
+  color: #fff;
+  margin: 12px;
+  border-radius: 12px;
+  border-bottom: 1px solid #fff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .main {
+    flex-direction: column;
+    height: auto;
+  }
+}
