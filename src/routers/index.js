@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Routes } from 'react-router-dom';
 import ConverterPage from "../pages/converterPage";
 import ExchangePage from "../pages/exchangePage";
 import Header from "../components/header";
