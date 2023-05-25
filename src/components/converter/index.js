@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles.css";
 
 const Converter = () => {
@@ -18,6 +18,7 @@ const Converter = () => {
   const handleToCurrencyChange = (event) => {
     setToCurrency(event.target.value);
   };
+
   const apiUrl = `https://api.frankfurter.app/latest?from=${fromCurrency}&to=${toCurrency}`;
 
   const handleConvert = () => {
@@ -33,6 +34,10 @@ const Converter = () => {
         setExchangeRate(null);
       });
   };
+
+  useEffect(() => {
+    handleConvert();
+  }, [fromCurrency, toCurrency]); // Trigger conversion when the "From" or "To" currency changes
 
   return (
     <div className="main-con">
