@@ -46,7 +46,7 @@ const Exchange = () => {
     const chartPageUrl = `/chart?base=${baseCurrency}&quote=${currency}&start=${startDateFormatted}&end=${today}`;
 
     // Open the new page in a new window or tab
-    window.open(chartPageUrl, '_blank');
+    window.location.href = chartPageUrl;
   };
 
   return (
