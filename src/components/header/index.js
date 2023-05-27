@@ -10,7 +10,7 @@ export const Header = () => {
       <div className="container">
         <div className="main">
           <div>
-            <h1>Best Rates</h1>
+            <h1>Rapid Xchange</h1>
           </div>
           <div className="header-btns">
             <div>

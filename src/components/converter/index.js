@@ -43,8 +43,8 @@ const Converter = () => {
     <div className="main-con">
       <div className="data-con">
         <div>
-          <h1>Fast Currency Converter</h1>
-          <p>Powered by Best Rates</p>
+          <h1>Rapid Currency Converter</h1>
+          <p>Powered by Rapid Xchange</p>
         </div>
         <div className="inputs-con">
           <div className="basecoin-con column">

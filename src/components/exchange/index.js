@@ -1,9 +1,16 @@
-import React, { useState } from "react";
-import "./styles.css";
-export const Exchange = () => {
-  const [amount, setAmount] = useState("1");
-  const [baseCurrency, setBaseCurrency] = useState("USD");
+import React, { useState, useEffect } from 'react';
+import Chart from 'chart.js/auto';
+import './styles.css';
+
+const Exchange = () => {
+  const [amount, setAmount] = useState('1');
+  const [baseCurrency, setBaseCurrency] = useState('USD');
+  const [quoteCurrency, setQuoteCurrency] = useState('JPY');
   const [exchangeRates, setExchangeRates] = useState(null);
+
+  useEffect(() => {
+    fetchExchangeRates();
+  }, []);
 
   const fetchExchangeRates = async () => {
     try {
@@ -11,12 +18,12 @@ export const Exchange = () => {
         `https://api.frankfurter.app/latest?from=${baseCurrency}`
       );
       if (!response.ok) {
-        throw new Error("Failed to fetch exchange rates");
+        throw new Error('Failed to fetch exchange rates');
       }
       const data = await response.json();
       setExchangeRates(data.rates);
     } catch (error) {
-      console.error("Error fetching exchange rates:", error);
+      console.error('Error fetching exchange rates:', error);
       setExchangeRates(null);
     }
   };
@@ -29,9 +36,22 @@ export const Exchange = () => {
     setAmount(event.target.value);
   };
 
+  const handleCurrencyClick = (currency) => {
+    setQuoteCurrency(currency);
+
+    // Construct the URL for the new page
+    const today = new Date().toISOString().split('T')[0];
+    const startDate = new Date().getTime() - 90 * 24 * 60 * 60 * 1000;
+    const startDateFormatted = new Date(startDate).toISOString().split('T')[0];
+    const chartPageUrl = `/chart?base=${baseCurrency}&quote=${currency}&start=${startDateFormatted}&end=${today}`;
+
+    // Open the new page in a new window or tab
+    window.open(chartPageUrl, '_blank');
+  };
+
   return (
     <div className="exchange-main-con">
-      <div className="exchnage-con ">
+      <div className="exchnage-con">
         <div>
           <select
             id="base-currency"
@@ -54,27 +74,37 @@ export const Exchange = () => {
             className="amount-input"
           />
         </div>
-        <div>
-          <button onClick={fetchExchangeRates} className="convert-btn">
-            Convert
-          </button>
-        </div>
       </div>
       <div className="exchange-rates-con">
         {!exchangeRates ? (
-          <>
-            <p>Enter amount and click convert to see exchange rates</p>
-          </>
+          <p>Loading exchange rates...</p>
         ) : (
           <>
-            <div>
-              <div>
-                {Object.entries(exchangeRates).map(([currency, rate]) => (
-                  <p key={currency} className="rates">
-                    {amount} {baseCurrency} to {currency}: {rate * amount}
-                  </p>
-                ))}
-              </div>
+            <div className="exchange-rates-left">
+              {Object.entries(exchangeRates).slice(0, Object.keys(exchangeRates).length / 2).map(([currency, rate]) => (
+                <p key={currency} className="rates">
+                  {amount} {baseCurrency} to {currency}:{' '}
+                  <a
+                    href="#"
+                    onClick={() => handleCurrencyClick(currency)}
+                  >
+                    {rate * amount}
+                  </a>
+                </p>
+              ))}
+            </div>
+            <div className="exchange-rates-right">
+              {Object.entries(exchangeRates).slice(Object.keys(exchangeRates).length / 2).map(([currency, rate]) => (
+                <p key={currency} className="rates">
+                  {amount} {baseCurrency} to {currency}:{' '}
+                  <a
+                    href="#"
+                    onClick={() => handleCurrencyClick(currency)}
+                  >
+                    {rate * amount}
+                  </a>
+                </p>
+              ))}
             </div>
           </>
         )}

@@ -4,6 +4,7 @@ import ConverterPage from "../pages/converterPage";
 import ExchangePage from "../pages/exchangePage";
 import Header from "../components/header";
 
+
 export const Routers = () => {
   return (
     <>
@@ -12,7 +13,7 @@ export const Routers = () => {
           <Header />
           <Routes>
             <Route path="/" element={<ConverterPage />} />
-            <Route path="/exchange" element={<ExchangePage />} />
+            <Route path="/exchange" element={<ExchangePage />} />          
           </Routes>
         </Router>
       </div>
