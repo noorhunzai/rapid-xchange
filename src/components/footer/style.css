@@ -2,8 +2,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #f8f8f8;
+  background-color: hwb(0 86% 13%);
   padding: 20px;
+  
 }
 
 .footer-left, .footer-right {
