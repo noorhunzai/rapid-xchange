@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Exchange from "../../components/exchange";
 
 export const ExchangePage = () => {
@@ -12,3 +11,4 @@ export const ExchangePage = () => {
   );
 };
 export default ExchangePage;
+

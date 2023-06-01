@@ -1,4 +1,4 @@
-.exchange-main-con {  
+.exchange-main-con {
   width: 100%;
   height: auto;
   display: flex;
@@ -47,4 +47,8 @@
 
 .exchange-rates-right {
   float: right;
+}
+.chart-link {
+  color: #a54f00;
+  cursor: pointer;
 }
