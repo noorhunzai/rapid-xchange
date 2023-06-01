@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { FaChartLine } from "react-icons/fa";
 import { MyContext } from "../../context/context";
 import "./styles.css";
 import { useNavigate } from "react-router-dom";
@@ -10,8 +11,7 @@ const Exchange = () => {
   const [exchangeRates, setExchangeRates] = useState(null);
 
   // Access the chartURL value from the context
-  const { updateUrl, updateBaseCurrency, updateToCurrency } =
-    useContext(MyContext);
+  const { updateUrl, updateBaseCurrency, updateToCurrency } = useContext(MyContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,9 +20,7 @@ const Exchange = () => {
 
   const fetchExchangeRates = async () => {
     try {
-      const response = await fetch(
-        `https://api.frankfurter.app/latest?from=${baseCurrency}`
-      );
+      const response = await fetch(`https://api.frankfurter.app/latest?from=${baseCurrency}`);
       if (!response.ok) {
         throw new Error("Failed to fetch exchange rates");
       }
@@ -49,12 +47,27 @@ const Exchange = () => {
     const today = new Date().toISOString().split("T")[0];
     const startDate = new Date().getTime() - 90 * 24 * 60 * 60 * 1000;
     const startDateFormatted = new Date(startDate).toISOString().split("T")[0];
-    // const chartUrl = `/chart?base=${baseCurrency}&quote=${currency}&start=${startDateFormatted}&end=${today}`;
     const chartUrl = `https://api.frankfurter.app/${startDateFormatted}..${today}?from=${baseCurrency}&to=${currency}`;
     updateUrl(chartUrl);
     updateBaseCurrency(baseCurrency);
     updateToCurrency(currency);
     navigate(`/chart/${currency}`);
+  };
+
+  const renderCurrencies = (startIndex, endIndex) => {
+    return Object.entries(exchangeRates)
+      .slice(startIndex, endIndex)
+      .map(([currency, rate]) => (
+        <p key={currency} className="rates">
+          {amount} {baseCurrency} to {currency}:{" "}
+          <span className="chart-link" onClick={() => handleCurrencyClick(currency)}>
+            {rate * amount}
+          </span>{" "}
+          <span className="chart-icon" style={{ color: "yellow" }}>
+            <FaChartLine />
+          </span>
+        </p>
+      ));
   };
 
   return (
@@ -88,36 +101,14 @@ const Exchange = () => {
           <p>Loading exchange rates...</p>
         ) : (
           <>
-            <div className="exchange-rates-left">
-              {Object.entries(exchangeRates)
-                .slice(0, Object.keys(exchangeRates).length / 2)
-                .map(([currency, rate]) => (
-                  <p key={currency} className="rates">
-                    {" "}
-                    {amount} {baseCurrency} to {currency}:{" "}
-                    <span
-                      className="chart-link"
-                      onClick={() => handleCurrencyClick(currency)}
-                    >
-                      {rate * amount}
-                    </span>
-                  </p>
-                ))}
+            <div className="exchange-rates-column">
+              {renderCurrencies(0, 10)}
             </div>
-            <div className="exchange-rates-right">
-              {Object.entries(exchangeRates)
-                .slice(Object.keys(exchangeRates).length / 2)
-                .map(([currency, rate]) => (
-                  <p key={currency} className="rates">
-                    {amount} {baseCurrency} to {currency}:{" "}
-                    <span
-                      className="chart-link"
-                      onClick={() => handleCurrencyClick(currency)}
-                    >
-                      {rate * amount}
-                    </span>
-                  </p>
-                ))}
+            <div className="exchange-rates-column">
+              {renderCurrencies(10, 20)}
+            </div>
+            <div className="exchange-rates-column">
+              {renderCurrencies(20, 30)}
             </div>
           </>
         )}

@@ -2,6 +2,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import Chart from "chart.js/auto";
 import { MyContext } from "../../context/context";
 import { useParams } from "react-router-dom";
+import "./style.css";
 
 
 const ChartComponent = () => {
@@ -71,7 +72,9 @@ const ChartComponent = () => {
 
   return (
     <div className="chart-container">
-      <canvas ref={chartRef} />
+      <div className="chart-wrapper">
+        <canvas ref={chartRef} />
+      </div>
     </div>
   );
 };
